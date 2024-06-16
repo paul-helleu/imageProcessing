@@ -11,11 +11,11 @@ import javax.imageio.ImageIO;
 public class ImageProcessing {
 	public static void main(String[] args) {
 		// The provided images are apple.jpg, flower.jpg, and kitten.jpg
-		int[][] imageData = imgToTwoD("./images/kitten.jpg");
+		int[][] imageData = imgToTwoD("images/kitten.jpg");
 		// Or load your own image using a URL!
 		// viewImageData(imageData);
 		// int[][] trimmed = trimBorders(imageData, 60);
-		// twoDToImage(trimmed, "./trimmed_kitten.jpg");
+		// twoDToImage(trimmed, "out/trimmed_kitten.jpg");
 		// int[][] allFilters = stretchHorizontally(shrinkVertically(colorFilter(negativeColor(trimBorders(invertImage(imageData), 50)), 200, 20, 40)));
 		// Painting with pixels
 		
@@ -23,13 +23,19 @@ public class ImageProcessing {
 		 * negativeImage method
 		 */
 		// int[][] negativeImage = negativeColor(imageData);
-		// twoDToImage(negativeImage, "./out/negative-kitten.jpg");
+		// twoDToImage(negativeImage, "out/negative-kitten.jpg");
 		
 		/* 
 		 * stretchHorizontally method
 		 */
-		int[][] negativeImage = stretchHorizontally(imageData);
-		twoDToImage(negativeImage, "out/stretchHorizontally-kitten.jpg");
+		// int[][] negativeImage = stretchHorizontally(imageData);
+		// twoDToImage(negativeImage, "out/stretchHorizontally-kitten.jpg");
+		
+		/* 
+		 * shrinkVertically method
+		 */
+		int[][] shrinkImage = shrinkVertically(imageData);
+		twoDToImage(shrinkImage, "out/shrinkVertically-kitten.jpg");
 		
 	}
 	// Image Processing Methods
@@ -69,7 +75,6 @@ public class ImageProcessing {
 	}
 	
 	public static int[][] stretchHorizontally(int[][] imageTwoD) {
-		// TODO: Fill in the code for this method
 		int rows = imageTwoD.length;
 		int cols = imageTwoD[0].length;
 		
@@ -85,8 +90,18 @@ public class ImageProcessing {
 		return stretchedImageTwoD;
 	}
 	public static int[][] shrinkVertically(int[][] imageTwoD) {
-		// TODO: Fill in the code for this method
-		return null;
+		int rows = (int) imageTwoD.length / 2;
+		int cols = imageTwoD[0].length;
+		
+		int[][] shrinkedImageTwoD = new int[rows][cols];
+		
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				shrinkedImageTwoD[i][j] = imageTwoD[i * 2][j];
+			}
+		}
+		
+		return shrinkedImageTwoD;
 	}
 	public static int[][] invertImage(int[][] imageTwoD) {
 		// TODO: Fill in the code for this method
