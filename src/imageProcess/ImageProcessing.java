@@ -7,7 +7,6 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.Random;
 import javax.imageio.ImageIO;
-import java.lang.Math;
 
 public class ImageProcessing {
 	public static void main(String[] args) {
@@ -60,20 +59,28 @@ public class ImageProcessing {
 		/*
 		 * paintRectangle method
 		 */
-		int rowsC = 800;
-		int colsC = 800;
+		// int rowsC = 800;
+		// int colsC = 800;
 		
-		int height = 100;
-		int width = 200;
+		// int height = 1000;
+		// int width = 200;
 		
-		int[][] myCanvas = new int[rowsC][colsC];
-		int[] color = {255, 255, 0, 255};
+		// int[][] myCanvas = new int[rowsC][colsC];
+		// int[] color = {255, 255, 0, 255};
 
 		// int[][] imageWithRectangle = paintRectangle(myCanvas, width, height, (int) rowsC / 2 - height / 2, (int) colsC / 2 - width / 2, getColorIntValFromRGBA(color));
-		int[][] imageWithRectangle = paintRectangle(myCanvas, width, height, 200, 100, getColorIntValFromRGBA(color));
-		twoDToImage(imageWithRectangle, "out/paintRectangle.jpg");
+		// int[][] imageWithRectangle = paintRectangle(myCanvas, width, height, 200, 100, getColorIntValFromRGBA(color));
+		// twoDToImage(imageWithRectangle, "out/paintRectangle.jpg");
+		
+		/*
+		 * generateRectangles method
+		 */
+		int[][] myCanvas = new int[1080][1920];
+		int[][] imageWithRectangle = generateRectangles(myCanvas, 1000);
+		twoDToImage(imageWithRectangle, "out/generateRectangles.jpg");
 		
 	}
+	
 	// Image Processing Methods
 	public static int[][] trimBorders(int[][] imageTwoD, int pixelCount) {
 		// Example Method
@@ -217,22 +224,39 @@ public class ImageProcessing {
 		int rows = canvas.length;
 		int cols = canvas[0].length;
 		
-		for (int i = rowPosition; i < rowPosition + height && i < rows; i++) {
-			for (int j = colPosition; j < colPosition + width && j < cols; j++) {
-				if (j < cols) {
-					if (i < rows) {
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				if (i >= rowPosition && i < rowPosition + height) {
+					if (j >= colPosition && j < colPosition + width) {
 						canvas[i][j] = color;
 					}
 				}
 			}
 		}
-
+		
 		return canvas;
 	}
 	
 	public static int[][] generateRectangles(int[][] canvas, int numRectangles) {
-		// TODO: Fill in the code for this method
-		return null;
+		Random rand = new Random();
+		
+		for (int rect = 0; rect < numRectangles; rect++) {
+			int cols = canvas[0].length;
+			int rows = canvas.length;
+			
+			int randomWidth = rand.nextInt(cols);
+			int randomHeight = rand.nextInt(rows);
+			
+			int rowPosition = rows - randomHeight;
+			int colPosition = cols - randomWidth;
+			
+			int[] color = {rand.nextInt(256), rand.nextInt(256), rand.nextInt(256), 255};
+			int colorValue = getColorIntValFromRGBA(color);
+			
+			paintRectangle(canvas, randomWidth, randomHeight, rowPosition, colPosition, colorValue);
+		}
+		
+		return canvas;
 	}
 	
 	// Utility Methods
