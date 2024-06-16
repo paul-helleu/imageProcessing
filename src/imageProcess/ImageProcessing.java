@@ -19,8 +19,8 @@ public class ImageProcessing {
 		// twoDToImage(trimmed, "./trimmed_kitten.jpg");
 		// int[][] allFilters = stretchHorizontally(shrinkVertically(colorFilter(negativeColor(trimBorders(invertImage(imageData), 50)), 200, 20, 40)));
 		// Painting with pixels
-		// int[][] negativeImage = negativeColor(imageData);
-		// twoDToImage(negativeImage, "./out/negative-kitten.jpg");
+		int[][] negativeImage = negativeColor(imageData);
+		twoDToImage(negativeImage, "./out/negative-kitten.jpg");
 	}
 	// Image Processing Methods
 	public static int[][] trimBorders(int[][] imageTwoD, int pixelCount) {
@@ -40,7 +40,7 @@ public class ImageProcessing {
 	}
 	public static int[][] negativeColor(int[][] imageTwoD) {
 		// TODO: Fill in the code for this method
-	    return null;
+		return null;
 	}
 	public static int[][] stretchHorizontally(int[][] imageTwoD) {
 		// TODO: Fill in the code for this method
