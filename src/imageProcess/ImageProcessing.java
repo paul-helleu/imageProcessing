@@ -34,9 +34,14 @@ public class ImageProcessing {
 		/* 
 		 * shrinkVertically method
 		 */
-		int[][] shrinkImage = shrinkVertically(imageData);
-		twoDToImage(shrinkImage, "out/shrinkVertically-kitten.jpg");
+		// int[][] shrinkImage = shrinkVertically(imageData);
+		// twoDToImage(shrinkImage, "out/shrinkVertically-kitten.jpg");
 		
+		/* 
+		 * invertImage method
+		 */
+		// int[][] invert = invertImage(imageData);
+		// twoDToImage(invert, "out/invertImage-kitten.jpg");	
 	}
 	// Image Processing Methods
 	public static int[][] trimBorders(int[][] imageTwoD, int pixelCount) {
@@ -104,8 +109,21 @@ public class ImageProcessing {
 		return shrinkedImageTwoD;
 	}
 	public static int[][] invertImage(int[][] imageTwoD) {
-		// TODO: Fill in the code for this method
-		return null;
+		int rows = imageTwoD.length;
+		int cols = imageTwoD[0].length;
+		
+		int[][] invertImageTwoD = new int[rows][cols];
+		
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				int oppositeRowPixel = rows - 1 - i;
+				int oppositeColPixel = cols - 1 - j;
+				
+				invertImageTwoD[i][j] = imageTwoD[oppositeRowPixel][oppositeColPixel];
+			}
+		}
+		
+		return invertImageTwoD;
 	}
 	public static int[][] colorFilter(int[][] imageTwoD, int redChangeValue, int greenChangeValue, int blueChangeValue) {
 		// TODO: Fill in the code for this method
