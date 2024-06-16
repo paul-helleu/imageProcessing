@@ -46,8 +46,15 @@ public class ImageProcessing {
 		/*
 		 * colorFilter method
 		 */
-		int[][] colorFilterImage = colorFilter(imageData, -75, 30, -30);
-		twoDToImage(colorFilterImage, "out/colorFilterImage-apple.jpg");
+		// int[][] colorFilterImage = colorFilter(imageData, -75, 30, -30);
+		// twoDToImage(colorFilterImage, "out/colorFilterImage-apple.jpg");
+		
+		/*
+		 * paintRandomImage method
+		 */
+		int[][] myCanvas = new int[500][500];
+		int[][] randomImage = paintRandomImage(myCanvas);
+		twoDToImage(randomImage, "out/randomImage.jpg");
 	}
 	// Image Processing Methods
 	public static int[][] trimBorders(int[][] imageTwoD, int pixelCount) {
@@ -175,8 +182,17 @@ public class ImageProcessing {
 	
 	// Painting Methods
 	public static int[][] paintRandomImage(int[][] canvas) {
-		// TODO: Fill in the code for this method
-		return null;
+		Random rand = new Random();
+		
+		for (int i = 0; i < canvas.length; i++) {
+			for (int j = 0; j < canvas[i].length; j++) {
+				int[] randomColor = {rand.nextInt(256), rand.nextInt(256), rand.nextInt(256), 255};
+				
+				canvas[i][j] = getColorIntValFromRGBA(randomColor);
+			}
+		}
+		
+		return canvas;
 	}
 	public static int[][] paintRectangle(int[][] canvas, int width, int height, int rowPosition, int colPosition, int color) {
 		// TODO: Fill in the code for this method
