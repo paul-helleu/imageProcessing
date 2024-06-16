@@ -10,17 +10,27 @@ import javax.imageio.ImageIO;
 
 public class ImageProcessing {
 	public static void main(String[] args) {
-    // The provided images are apple.jpg, flower.jpg, and kitten.jpg
-		int[][] imageData = imgToTwoD("./image/kitten.jpg");
+		// The provided images are apple.jpg, flower.jpg, and kitten.jpg
+		int[][] imageData = imgToTwoD("./images/kitten.jpg");
 		// Or load your own image using a URL!
-		//int[][] imageData = imgToTwoD("https://content.codecademy.com/projects/project_thumbnails/phaser/bug-dodger.png");
-		//viewImageData(imageData);
+		// viewImageData(imageData);
 		// int[][] trimmed = trimBorders(imageData, 60);
 		// twoDToImage(trimmed, "./trimmed_kitten.jpg");
 		// int[][] allFilters = stretchHorizontally(shrinkVertically(colorFilter(negativeColor(trimBorders(invertImage(imageData), 50)), 200, 20, 40)));
 		// Painting with pixels
-		int[][] negativeImage = negativeColor(imageData);
-		twoDToImage(negativeImage, "./out/negative-kitten.jpg");
+		
+		/* 
+		 * negativeImage method
+		 */
+		// int[][] negativeImage = negativeColor(imageData);
+		// twoDToImage(negativeImage, "./out/negative-kitten.jpg");
+		
+		/* 
+		 * stretchHorizontally method
+		 */
+		int[][] negativeImage = stretchHorizontally(imageData);
+		twoDToImage(negativeImage, "out/stretchHorizontally-kitten.jpg");
+		
 	}
 	// Image Processing Methods
 	public static int[][] trimBorders(int[][] imageTwoD, int pixelCount) {
@@ -38,8 +48,8 @@ public class ImageProcessing {
 			return imageTwoD;
 		}
 	}
+	
 	public static int[][] negativeColor(int[][] imageTwoD) {
-		// TODO: Fill in the code for this method
 		int rows = imageTwoD.length;
 	    int cols = imageTwoD[0].length;
 	
@@ -57,9 +67,22 @@ public class ImageProcessing {
 
 		return negativeImageTwoD;
 	}
+	
 	public static int[][] stretchHorizontally(int[][] imageTwoD) {
 		// TODO: Fill in the code for this method
-		return null;
+		int rows = imageTwoD.length;
+		int cols = imageTwoD[0].length;
+		
+		int[][] stretchedImageTwoD = new int[rows][cols * 2];
+		
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				stretchedImageTwoD[i][j * 2] = imageTwoD[i][j];
+				stretchedImageTwoD[i][j * 2 + 1] = imageTwoD[i][j];
+			}
+		}
+		
+		return stretchedImageTwoD;
 	}
 	public static int[][] shrinkVertically(int[][] imageTwoD) {
 		// TODO: Fill in the code for this method
