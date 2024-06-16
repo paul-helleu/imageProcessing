@@ -7,6 +7,7 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.Random;
 import javax.imageio.ImageIO;
+import java.lang.Math;
 
 public class ImageProcessing {
 	public static void main(String[] args) {
@@ -52,9 +53,26 @@ public class ImageProcessing {
 		/*
 		 * paintRandomImage method
 		 */
-		int[][] myCanvas = new int[500][500];
-		int[][] randomImage = paintRandomImage(myCanvas);
-		twoDToImage(randomImage, "out/randomImage.jpg");
+		// int[][] myCanvas = new int[500][500];
+		// int[][] randomImage = paintRandomImage(myCanvas);
+		// twoDToImage(randomImage, "out/randomImage.jpg");
+		
+		/*
+		 * paintRectangle method
+		 */
+		int rowsC = 800;
+		int colsC = 800;
+		
+		int height = 100;
+		int width = 200;
+		
+		int[][] myCanvas = new int[rowsC][colsC];
+		int[] color = {255, 255, 0, 255};
+
+		// int[][] imageWithRectangle = paintRectangle(myCanvas, width, height, (int) rowsC / 2 - height / 2, (int) colsC / 2 - width / 2, getColorIntValFromRGBA(color));
+		int[][] imageWithRectangle = paintRectangle(myCanvas, width, height, 200, 100, getColorIntValFromRGBA(color));
+		twoDToImage(imageWithRectangle, "out/paintRectangle.jpg");
+		
 	}
 	// Image Processing Methods
 	public static int[][] trimBorders(int[][] imageTwoD, int pixelCount) {
@@ -194,14 +212,29 @@ public class ImageProcessing {
 		
 		return canvas;
 	}
+	
 	public static int[][] paintRectangle(int[][] canvas, int width, int height, int rowPosition, int colPosition, int color) {
-		// TODO: Fill in the code for this method
-		return null;
+		int rows = canvas.length;
+		int cols = canvas[0].length;
+		
+		for (int i = rowPosition; i < rowPosition + height && i < rows; i++) {
+			for (int j = colPosition; j < colPosition + width && j < cols; j++) {
+				if (j < cols) {
+					if (i < rows) {
+						canvas[i][j] = color;
+					}
+				}
+			}
+		}
+
+		return canvas;
 	}
+	
 	public static int[][] generateRectangles(int[][] canvas, int numRectangles) {
 		// TODO: Fill in the code for this method
 		return null;
 	}
+	
 	// Utility Methods
 	public static int[][] imgToTwoD(String inputFileOrLink) {
 		try {
