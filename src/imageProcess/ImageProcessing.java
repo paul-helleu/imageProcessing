@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
 public class ImageProcessing {
 	public static void main(String[] args) {
 		// The provided images are apple.jpg, flower.jpg, and kitten.jpg
-		int[][] imageData = imgToTwoD("images/kitten.jpg");
+		int[][] imageData = imgToTwoD("images/apple.jpg");
 		// Or load your own image using a URL!
 		// viewImageData(imageData);
 		// int[][] trimmed = trimBorders(imageData, 60);
@@ -42,6 +42,12 @@ public class ImageProcessing {
 		 */
 		// int[][] invert = invertImage(imageData);
 		// twoDToImage(invert, "out/invertImage-kitten.jpg");	
+		
+		/*
+		 * colorFilter method
+		 */
+		int[][] colorFilterImage = colorFilter(imageData, -75, 30, -30);
+		twoDToImage(colorFilterImage, "out/colorFilterImage-apple.jpg");
 	}
 	// Image Processing Methods
 	public static int[][] trimBorders(int[][] imageTwoD, int pixelCount) {
@@ -94,6 +100,7 @@ public class ImageProcessing {
 		
 		return stretchedImageTwoD;
 	}
+	
 	public static int[][] shrinkVertically(int[][] imageTwoD) {
 		int rows = (int) imageTwoD.length / 2;
 		int cols = imageTwoD[0].length;
@@ -108,6 +115,7 @@ public class ImageProcessing {
 		
 		return shrinkedImageTwoD;
 	}
+	
 	public static int[][] invertImage(int[][] imageTwoD) {
 		int rows = imageTwoD.length;
 		int cols = imageTwoD[0].length;
@@ -125,10 +133,46 @@ public class ImageProcessing {
 		
 		return invertImageTwoD;
 	}
+	
 	public static int[][] colorFilter(int[][] imageTwoD, int redChangeValue, int greenChangeValue, int blueChangeValue) {
-		// TODO: Fill in the code for this method
-		return null;
+		int rows = imageTwoD.length;
+		int cols = imageTwoD[0].length;
+		
+		int[][] filteredImageTwoD = new int[rows][cols];
+		
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				int[] pixelColor = getRGBAFromPixel(imageTwoD[i][j]);
+				
+				pixelColor[0] += redChangeValue;
+				pixelColor[1] += greenChangeValue;
+				pixelColor[2] += blueChangeValue;
+				
+				if (pixelColor[0] < 0) {
+					pixelColor[0] = 0;
+				} else if (pixelColor[0] > 255) {
+					pixelColor[0] = 255;
+				}
+				
+				if (pixelColor[1] < 0) {
+					pixelColor[1] = 0;
+				} else if (pixelColor[1] > 255) {
+					pixelColor[1] = 255;
+				}
+				
+				if (pixelColor[2] < 0) {
+					pixelColor[2] = 0;
+				} else if (pixelColor[2] > 255) {
+					pixelColor[2] = 255;
+				}
+				
+				filteredImageTwoD[i][j] = getColorIntValFromRGBA(pixelColor);		
+			}
+		}
+		
+		return filteredImageTwoD;
 	}
+	
 	// Painting Methods
 	public static int[][] paintRandomImage(int[][] canvas) {
 		// TODO: Fill in the code for this method
